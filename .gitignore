@@ -4,12 +4,12 @@ __pycache__/
 *$py.class
 */data
 # C extensions
+.vscode
 *.so
 */.vscode
 */*.gensim
 */*.pkl
 */test
-*/*.zip
 */*.state
 */*.id2word
 */*.npy
