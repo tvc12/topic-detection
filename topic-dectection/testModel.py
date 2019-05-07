@@ -48,22 +48,24 @@ lda_model = gensim.models.ldamodel.LdaModel.load('model_25.gensim')
 # for idx, topic in lda_model.print_topics(-1):
 #     print("Topic: {} \nWords: {}".format(idx, topic))
 #     print("\n")
+for idx, topic in lda_model.print_topics(-1):
+    print("Topic: {} \nWords: {}".format(idx, topic))
+    print("\n")
 
-test_data = read_data(dir, files, 0.0)
+test_data = read_data(dir, files, 0.05)
 
 test_dictionary = corpora.Dictionary(test_data)
 
-for test in test_data:
-    bow_vector=test_dictionary.doc2bow(test)
-    document_dist = np.array(
-        [tup[1] for tup in lda_model.get_document_topics(bow=bow_vector)]
-    )
-    print(get_most_similar_documents(lda_model, corpus, document_dist))
-
 # for test in test_data:
 #     bow_vector=test_dictionary.doc2bow(test)
-#     for index, score in sorted(lda_model[bow_vector],
-#                                key=lambda tup: -1 * tup[1]):
-#         print(index)
-#         print("Score: {}\t Topic: {}".format(score,
-#                                              lda_model.print_topic(index)))
+#     document_dist = np.array(
+#         [tup[1] for tup in lda_model.get_document_topics(bow=bow_vector)]
+#     )
+#     print(get_most_similar_documents(lda_model, corpus, document_dist))
+
+for test in test_data:
+    bow_vector=test_dictionary.doc2bow(test)
+    for index, score in sorted(lda_model[bow_vector],
+                               key=lambda tup: -1 * tup[1]):
+        print("Score: {}\t Topic: {}".format(score,
+                                             lda_model.print_topic(index)))
