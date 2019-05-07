@@ -7,9 +7,12 @@ def clean_text(text):
 
 def preprocess_text(texts, tokenizer):
     tok_doc = []
+    i = len(texts)
     for text in texts:
         if isinstance(text, str):
             text = clean_text(text)
             tok_txt = tokenizer.tokenize(text)
             tok_doc.append(tok_txt)
+        print("Done ", i)
+        i -= 1
     return tok_doc

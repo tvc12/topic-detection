@@ -12,7 +12,7 @@ import numpy as np
 tokenizer = CrfTokenizer()
 dir = 'test/'
 path, dirs, files = next(os.walk(dir))
-num_topic = 24
+num_topic = 15
 max_files = len(files)
 
 
@@ -48,17 +48,13 @@ lda_model = gensim.models.ldamodel.LdaModel.load(f'model_{num_topic}.gensim')
 #     print("\n")
 
 id, test_data = read_data(dir, files, 0.01)
-# new_doc_bow = dictionary.doc2bow(test_data[0])
 
-# print(new_doc_bow)
+test_corpus = [dictionary.doc2bow(doc) for doc in test_data]
 
-# test_corpus = [dictionary.doc2bow(doc) for doc in test_data]
 
-# print(lda_model.get_document_topics(bow=test_corpus))
-
-# document_dist = np.array(
-# [print(tup) for tup in lda_model.get_document_topics(bow=test_corpus)]
-# )
+document_dist = np.array(
+[print(tup) for tup in lda_model.get_document_topics(bow=test_corpus)]
+)
 
 # print(document_dist)
 
@@ -67,16 +63,10 @@ id, test_data = read_data(dir, files, 0.01)
 
 #test_dictionary = corpora.Dictionary(test_data)
 
-# for test in test_data:
-#     bow_vector=test_dictionary.doc2bow(test)
-#     document_dist = np.array(
-#         [tup[1] for tup in lda_model.get_document_topics(bow=bow_vector)]
-#     )
-#     print(get_most_similar_documents(lda_model, corpus, document_dist))
 
-for test in test_data:
-    bow_vector = dictionary.doc2bow(test)
-    for index, score in sorted(lda_model[bow_vector],
-                               key=lambda tup: -1 * tup[1]):
-        print("Score: {}\t Topic: {} {}".format(score, index,
-                                                lda_model.print_topic(index)))
+# for test in test_data:
+#     bow_vector = dictionary.doc2bow(test)
+#     for index, score in sorted(lda_model[bow_vector],
+#                                key=lambda tup: -1 * tup[1]):
+#         print("Score: {}\t Topic: {} {}".format(score, index,
+#                                                 lda_model.print_topic(index)))

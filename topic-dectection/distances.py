@@ -18,7 +18,6 @@ def jensen_shannon(query, matrix):
 
 
 def get_most_similar_documents(lda_model, corpus, query, k=10):
-    
     """
     This function implements the Jensen-Shannon distance above
     and returns the top k indices of the smallest jensen shannon distances
