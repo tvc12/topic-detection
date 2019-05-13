@@ -12,7 +12,7 @@ import numpy as np
 tokenizer = CrfTokenizer()
 dir = 'test/'
 path, dirs, files = next(os.walk(dir))
-num_topic = 15
+num_topic = 35
 max_files = len(files)
 
 
@@ -63,10 +63,12 @@ document_dist = np.array(
 
 #test_dictionary = corpora.Dictionary(test_data)
 
-
-# for test in test_data:
-#     bow_vector = dictionary.doc2bow(test)
-#     for index, score in sorted(lda_model[bow_vector],
-#                                key=lambda tup: -1 * tup[1]):
-#         print("Score: {}\t Topic: {} {}".format(score, index,
-#                                                 lda_model.print_topic(index)))
+i = 0
+for test in test_data:
+    print('ID: ', id[i])
+    i += 1
+    bow_vector = dictionary.doc2bow(test)
+    for index, score in sorted(lda_model[bow_vector],
+                               key=lambda tup: -1 * tup[1]):
+        print("Score: {}\t Topic: {} {}".format(score, index,
+                                                lda_model.print_topic(index, 4)))

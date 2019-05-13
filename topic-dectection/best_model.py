@@ -71,31 +71,28 @@ bow_corpus = [dictionary.doc2bow(doc) for doc in text_data]
 # training
 # parameter LdaMulticore see in https://radimrehurek.com/gensim/models/ldamulticore.html
 # --------------------------------------------------------------------------------------
-print("Basic Training")
-lda_model = gensim.models.LdaMulticore(
-    bow_corpus,
-    num_topics=num_topics,
-    id2word=dictionary,
-    passes=10,
-    workers=8,
-    minimum_probability=0.04,
-    random_state=50,
-    alpha=1e-2,
-    chunksize=4500,
-    eta=0.5e-2,
-)
-# coherencemodel = CoherenceModel(
-#     model=lda_model, texts=text_data, dictionary=dictionary, coherence='c_v')
 
-# print("Num Topics =", num_topics, " has Coherence Value of",
-#       round(coherencemodel.get_coherence(), 4))
+limit = 40  # max topic
+start = 2
+step = 6
+lda_model, num_topics, coherence_values = compute_coherence_values(
+    dictionary, bow_corpus, text_data, start=start, limit=limit, step=step)
+
+x = range(start, limit, step)
+plt.plot(x, coherence_values)
+plt.xlabel("Num Topics")
+plt.ylabel("Coherence score")
+plt.legend(("coherence_values"), loc='best')
+plt.show()
+
+# model_list, coherence_values = compute_coherence_values(
+#     dictionary=dictionary, bow_corpus=bow_corpus, texts=text_data, start=start, limit=limit, step=step)
 
 print("Done")
-
 for idx, topic in lda_model.print_topics(-1):
     print("Topic: {} \nWords: {}".format(idx, topic))
     print("\n")
-
+# -------------------------------------------------------------------------------
 # save model
 
 print("Save")

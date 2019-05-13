@@ -23,7 +23,8 @@ def compute_coherence_values(dictionary, bow_corpus, texts, limit, start=2, step
     coherence_values : Coherence values corresponding to the LDA model with respective number of topics
     """
     coherence_values = []
-    model_list = []
+    max_coherencemodel = 0
+    best_topic = 0
     for num_topics in range(start, limit, step):
         print('Training with ', num_topics, ' Topic')
         lda_model = gensim.models.LdaMulticore(
@@ -38,11 +39,17 @@ def compute_coherence_values(dictionary, bow_corpus, texts, limit, start=2, step
             chunksize=4000,
             eta=0.5e-2,
         )
-        model_list.append(lda_model)
         coherencemodel = CoherenceModel(
             model=lda_model, texts=texts, dictionary=dictionary, coherence='c_v')
-        print("Num Topics =", num_topics, " has Coherence Value of",
+
+        print("Num Topics =", num_topics, " coherence = ",
               round(coherencemodel.get_coherence(), 4))
+
+        if max_coherencemodel < round(coherencemodel.get_coherence(), 4) :
+            max_coherencemodel = round(coherencemodel.get_coherence(), 4)
+            best_model = lda_model
+            best_topic = num_topics
+        
         coherence_values.append(coherencemodel.get_coherence())
 
-    return model_list, coherence_values
+    return best_model, best_topic, coherence_values
