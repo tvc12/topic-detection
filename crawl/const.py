@@ -3,7 +3,7 @@ VNEXPRESS_THOISU = 'https://vnexpress.net/thoi-su'
 VNEXPRESS_THEGIOI = 'https://vnexpress.net/the-gioi'
 VNEXPRESS_XE = 'https://vnexpress.net/oto-xe-may'
 VNEXPRESS_TAMSU = 'https://vnexpress.net/tam-su'
-
+VNEXPRESS_PHAPLUAT = 'https://vnexpress.net/phap-luat'
 
 VNEXPRESS_GIAITRI = 'https://vnexpress.net/giai-tri'
 # VNEXPRESS_KHOAHOC = 'https://vnexpress.net/khoa-hoc'
@@ -20,4 +20,5 @@ type_1 =[
     VNEXPRESS_THEGIOI,
     VNEXPRESS_TAMSU,
     VNEXPRESS_XE,
+    VNEXPRESS_PHAPLUAT
 ]

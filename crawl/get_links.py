@@ -20,21 +20,25 @@ def get_urls_new(url, num):
 
     urls = []
     while True:
-        print('{}: {}{}{}'.format(num_link, url, url_page, num_page))
-        page = urllib.request.urlopen('{}{}{}'.format(url, url_page, num_page))
-        soup = BeautifulSoup(page, 'html.parser')
-        slidebar = soup.find('section', class_='sidebar_1')
-        if slidebar is None:
+        try:
+            print('{}: {}{}{}'.format(num_link, url, url_page, num_page))
+            page = urllib.request.urlopen('{}{}{}'.format(url, url_page, num_page))
+            soup = BeautifulSoup(page, 'html.parser')
+            slidebar = soup.find('section', class_='sidebar_1')
+            if slidebar is None:
+                continue
+            new_feeds = slidebar.find_all('a', class_='', href=not_relative_uri)
+            if new_feeds is None:
+                continue
+            for feed in new_feeds:
+                link = feed.get('href')
+                urls.append(link)
+                print('{} : {}'.format(num_link, link))
+                num_link = num_link + 1
+                if (num_link >= num):
+                    return urls
+            num_page = num_page + 1
+        except:
             continue
-        new_feeds = slidebar.find_all('a', class_='', href=not_relative_uri)
-        if new_feeds is None:
-            continue
-        for feed in new_feeds:
-            link = feed.get('href')
-            urls.append(link)
-            print('{} : {}'.format(num_link, link))
-            num_link = num_link + 1
-            if (num_link >= num):
-                return urls
-        num_page = num_page + 1
     return urls
+    

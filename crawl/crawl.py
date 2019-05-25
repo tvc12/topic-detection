@@ -56,3 +56,13 @@ def crawl_thethao(num=5000, path='data/thethao/', header_name='thethao_'):
         if new != '':
             print("Write url: {}".format(url))
             save_content(path, header_name, new)
+
+def crawl_phapluat(num=5000, path='data/phapluat/', header_name='phapluat_'):
+    if not os.path.exists(path):
+        os.makedirs(path)
+    urls = get_urls_new(VNEXPRESS_PHAPLUAT,  num)
+    for url in urls:
+        new = get_content(url)
+        if new != '':
+            print("Write url: {}".format(url))
+            save_content(path, header_name, new)

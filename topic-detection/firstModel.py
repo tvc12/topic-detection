@@ -11,7 +11,7 @@
 import matplotlib.pyplot as plt
 import os
 import pickle
-
+import numpy as np
 import gensim
 import numpy
 from gensim import corpora
@@ -25,12 +25,12 @@ from coherence import compute_coherence_values
 tokenizer = CrfTokenizer()
 
 
-def read_data(dir, files, rate_read):
+def read_data(files, rate_read = 1):
     i = 0
     data = []
     for path in files:
         print('Load file', path)
-        with open(dir + path, 'r') as file:
+        with open(path, 'r') as file:
             data.append(file.read())
             file.close()
 
@@ -47,13 +47,20 @@ def read_data(dir, files, rate_read):
 
 
 # open folder
-dir = 'data/'
-path, dirs, files = next(os.walk(dir))
+main_dir = 'data'
+path, dirs, files = next(os.walk(main_dir))
+files = []
+for dir in dirs:
+    path, sub_dirs, sub_files = next(os.walk('{}/{}/'.format(main_dir, dir)))
+    for file in sub_files:
+        file = '{}/{}/{}'.format(main_dir, dir, file)
+        files.append(file)
 max_files = len(files)
+
 num_topics = 35
 
 # and read data
-text_data = read_data(dir, files, 0.15)
+text_data = read_data(files)
 
 # Preprocessing the raw text
 
@@ -84,11 +91,11 @@ lda_model = gensim.models.LdaMulticore(
     chunksize=4500,
     eta=0.5e-2,
 )
-# coherencemodel = CoherenceModel(
-#     model=lda_model, texts=text_data, dictionary=dictionary, coherence='c_v')
+coherencemodel = CoherenceModel(
+    model=lda_model, texts=text_data, dictionary=dictionary, coherence='c_v')
 
-# print("Num Topics =", num_topics, " has Coherence Value of",
-#       round(coherencemodel.get_coherence(), 4))
+print("Num Topics =", num_topics, " has Coherence Value of",
+      round(coherencemodel.get_coherence(), 4))
 
 print("Done")
 
