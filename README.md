@@ -1,7 +1,6 @@
 ## topic-detection
 
 ![GitHub](https://img.shields.io/github/license/tvc12/topic-detection.svg) 
-[![Hits-of-Code](https://hitsofcode.com/github/tvc12/topic-detection)](https://hitsofcode.com/view/github/tvc12/topic-detection)
 
 ### Usage
 
