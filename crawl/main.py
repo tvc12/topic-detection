@@ -1,3 +1,3 @@
 from crawl import * 
 
-crawl_giaitri(5000)
+crawl_giaitri()

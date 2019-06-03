@@ -1,3 +1,3 @@
 from crawl import * 
 
-crawl_phapluat(5555)
+crawl_giaoduc()
