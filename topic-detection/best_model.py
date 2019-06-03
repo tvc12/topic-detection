@@ -1,5 +1,6 @@
 # install deepai_nlp
 # git clone https://github.com/deepai-solutions/deepai_nlp.git
+# cd deepai_nlp
 # pip install -e
 # install gensim
 # conda install -c anaconda gensim
