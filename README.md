@@ -11,6 +11,12 @@ Install deepai_nlp package:
 git clone https://github.com/deepai-solutions/deepai_nlp.git
 cd deepai_nlp
 pip install -e .
+## or 
+pip3 install -e .
+
+pip install matplotlib
+## or
+pip3 install matplotlib
 ```
 
 **Step 2:**
