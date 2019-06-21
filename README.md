@@ -10,11 +10,11 @@ Install deepai_nlp package:
 ```bash
 git clone https://github.com/deepai-solutions/deepai_nlp.git
 cd deepai_nlp
-pip install -e
+pip install -e .
 ```
 
 **Step 2:**
-Install **gensim**
+Install **gensim (Option)** 
 
 ```bash
 conda install -c anaconda gensim
